@@ -87,15 +87,20 @@ CREATE TABLE [CashFlow].[Schedule](
 
 GO
 
-CREATE TABLE [CashFlow].[Transaction]
+CREATE TABLE [CashFlow].[TransactionSchedule]
 (
-	TransactionId int NOT NULL PRIMARY KEY identity(1,1),
+	TransactionScheduleId int NOT NULL PRIMARY KEY identity(1,1),
 	TransactionTypeId int NOT NULL FOREIGN KEY REFERENCES [Lookup].TransactionType(TransactionTypeId),
 	AccountId int NOT NULL FOREIGN KEY REFERENCES [CashFlow].Account(AccountId),
 	ScheduleId int NULL FOREIGN KEY REFERENCES [CashFlow].Schedule(ScheduleId),
 	Amount decimal(20, 6) NOT NULL,
-	StartDate date NOT NULL,
+	[Description] varchar(255) NOT NULL,
 	CreatedDate datetime NOT NULL
 )
+
+GO
+
+ALTER TABLE CashFlow.[TransactionSchedule] 
+	ADD CONSTRAINT UNQ_TRANS_SCHED_ID UNIQUE (ScheduleId)
 
 GO
