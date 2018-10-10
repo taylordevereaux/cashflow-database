@@ -5,11 +5,11 @@ SET NOCOUNT ON;
 
 GO
 -- Comment out to prevent truncating data.
-DELETE FROM dbo.RepeatTransaction
+DELETE FROM dbo.[Transaction]
 DELETE FROM dbo.Account
 DELETE FROM dbo.TransactionType
-DELETE FROM dbo.RepeatType
-DELETE FROM  dbo.AccountType
+DELETE FROM dbo.Schedule
+DELETE FROM dbo.AccountType
 
 GO
 
@@ -17,15 +17,6 @@ GO
 INSERT INTO dbo.AccountType (AccountTypeConstant, Name, CreatedDate) VALUES ('CHEQUING', 'Chequing', GETDATE())
 INSERT INTO dbo.AccountType (AccountTypeConstant, Name, CreatedDate) VALUES ('SAVINGS', 'Savings', GETDATE())
 INSERT INTO dbo.AccountType (AccountTypeConstant, Name, CreatedDate) VALUES ('CREDIT', 'Credit', GETDATE())
-
-GO
-
-INSERT INTO dbo.RepeatType (RepeatTypeConstant, Name, CreatedDate) VALUES ('ONETIME', 'One Time', GETDATE())
-INSERT INTO dbo.RepeatType (RepeatTypeConstant, Name, CreatedDate) VALUES ('DAILY', 'Daily', GETDATE())
-INSERT INTO dbo.RepeatType (RepeatTypeConstant, Name, CreatedDate) VALUES ('WEEKLY', 'Weekly', GETDATE())
-INSERT INTO dbo.RepeatType (RepeatTypeConstant, Name, CreatedDate) VALUES ('BIWEEKLY', 'Bi-Weekly', GETDATE())
-INSERT INTO dbo.RepeatType (RepeatTypeConstant, Name, CreatedDate) VALUES ('MONTHLY', 'Monthly', GETDATE())
-INSERT INTO dbo.RepeatType (RepeatTypeConstant, Name, CreatedDate) VALUES ('YEARLY', 'Yearly', GETDATE())
 
 GO
 
@@ -43,11 +34,11 @@ SELECT TOP 1 @AccountID = AccountID FROM dbo.Account
 
 DECLARE @TransactionTypeID int = dbo.fnGetTransactionTypeIDByConstant('EXPENSE')
 
-INSERT INTO dbo.RepeatTransaction (TransactionTypeID, AccountID, RepeatTypeID, Amount, StartDate, CreatedDate) VALUES (@TransactionTypeID, @AccountID, dbo.fnGetRepeatTypeIDByConstant('MONTHLY'), 102.15, '2018-08-28', GETDATE())
-INSERT INTO dbo.RepeatTransaction (TransactionTypeID, AccountID, RepeatTypeID, Amount, StartDate, CreatedDate) VALUES (@TransactionTypeID, @AccountID, dbo.fnGetRepeatTypeIDByConstant('WEEKLY'), 65, '2018-07-28', GETDATE())
-INSERT INTO dbo.RepeatTransaction (TransactionTypeID, AccountID, RepeatTypeID, Amount, StartDate, CreatedDate) VALUES (@TransactionTypeID, @AccountID, dbo.fnGetRepeatTypeIDByConstant('BIWEEKLY'), 90, '2018-07-28', GETDATE())
-INSERT INTO dbo.RepeatTransaction (TransactionTypeID, AccountID, RepeatTypeID, Amount, StartDate, CreatedDate) VALUES (@TransactionTypeID, @AccountID, dbo.fnGetRepeatTypeIDByConstant('ONETIME'), 52, '2018-07-09', GETDATE())
-INSERT INTO dbo.RepeatTransaction (TransactionTypeID, AccountID, RepeatTypeID, Amount, StartDate, CreatedDate) VALUES (@TransactionTypeID, @AccountID, dbo.fnGetRepeatTypeIDByConstant('WEEKLY'), 501, '2018-07-10', GETDATE())
-INSERT INTO dbo.RepeatTransaction (TransactionTypeID, AccountID, RepeatTypeID, Amount, StartDate, CreatedDate) VALUES (@TransactionTypeID, @AccountID, dbo.fnGetRepeatTypeIDByConstant('WEEKLY'), 540, '2018-07-07', GETDATE())
+INSERT INTO dbo.[Transaction] (TransactionTypeID, AccountID, RepeatTypeID, Amount, StartDate, CreatedDate) VALUES (@TransactionTypeID, @AccountID, dbo.fnGetRepeatTypeIDByConstant('MONTHLY'), 102.15, '2018-08-28', GETDATE())
+INSERT INTO dbo.[Transaction] (TransactionTypeID, AccountID, RepeatTypeID, Amount, StartDate, CreatedDate) VALUES (@TransactionTypeID, @AccountID, dbo.fnGetRepeatTypeIDByConstant('WEEKLY'), 65, '2018-07-28', GETDATE())
+INSERT INTO dbo.[Transaction] (TransactionTypeID, AccountID, RepeatTypeID, Amount, StartDate, CreatedDate) VALUES (@TransactionTypeID, @AccountID, dbo.fnGetRepeatTypeIDByConstant('BIWEEKLY'), 90, '2018-07-28', GETDATE())
+INSERT INTO dbo.[Transaction] (TransactionTypeID, AccountID, RepeatTypeID, Amount, StartDate, CreatedDate) VALUES (@TransactionTypeID, @AccountID, dbo.fnGetRepeatTypeIDByConstant('ONETIME'), 52, '2018-07-09', GETDATE())
+INSERT INTO dbo.[Transaction] (TransactionTypeID, AccountID, RepeatTypeID, Amount, StartDate, CreatedDate) VALUES (@TransactionTypeID, @AccountID, dbo.fnGetRepeatTypeIDByConstant('WEEKLY'), 501, '2018-07-10', GETDATE())
+INSERT INTO dbo.[Transaction] (TransactionTypeID, AccountID, RepeatTypeID, Amount, StartDate, CreatedDate) VALUES (@TransactionTypeID, @AccountID, dbo.fnGetRepeatTypeIDByConstant('WEEKLY'), 540, '2018-07-07', GETDATE())
 
 GO
