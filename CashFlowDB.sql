@@ -87,9 +87,9 @@ CREATE TABLE [CashFlow].[Schedule](
 
 GO
 
-CREATE TABLE [CashFlow].[TransactionSchedule]
+CREATE TABLE [CashFlow].[RecurringTransaction]
 (
-	TransactionScheduleId int NOT NULL PRIMARY KEY identity(1,1),
+	RecurringTransactionId int NOT NULL PRIMARY KEY identity(1,1),
 	TransactionTypeId int NOT NULL FOREIGN KEY REFERENCES [Lookup].TransactionType(TransactionTypeId),
 	AccountId int NOT NULL FOREIGN KEY REFERENCES [CashFlow].Account(AccountId),
 	ScheduleId int NULL FOREIGN KEY REFERENCES [CashFlow].Schedule(ScheduleId),
@@ -100,7 +100,7 @@ CREATE TABLE [CashFlow].[TransactionSchedule]
 
 GO
 
-ALTER TABLE CashFlow.[TransactionSchedule] 
+ALTER TABLE CashFlow.[RecurringTransaction] 
 	ADD CONSTRAINT UNQ_TRANS_SCHED_ID UNIQUE (ScheduleId)
 
 GO
